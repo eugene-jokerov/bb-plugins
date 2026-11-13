@@ -11,12 +11,13 @@
 ## Установка
 
 ```sh
-bb plugin install git:https://github.com/eugene-jokerov/bb-plugins.git --subdirectory plugins/openrouter-cost
+bb plugin install git:https://github.com/eugene-jokerov/bb-plugins.git --plugin openrouter-cost
 ```
 
-`--subdirectory` обязателен: репозиторий мультиплагинный. bb собирает плагин
-при установке (`bb plugin build`), поэтому `dist/` и `node_modules/` в
-репозитории не хранятся.
+Индекс плагинов — `.bb/plugins.json`: репозиторий мультиплагинный, `--plugin`
+выбирает одну запись по имени (эквивалент `--subdirectory plugins/openrouter-cost`).
+bb собирает плагин при установке (`bb plugin build`), поэтому `dist/` и
+`node_modules/` в репозитории не хранятся.
 
 ## Обновление
 
@@ -24,9 +25,12 @@ bb plugin install git:https://github.com/eugene-jokerov/bb-plugins.git --subdire
 плагина сохраняются:
 
 ```sh
-bb plugin install git:https://github.com/eugene-jokerov/bb-plugins.git --subdirectory plugins/openrouter-cost --yes
+bb plugin install git:https://github.com/eugene-jokerov/bb-plugins.git --plugin openrouter-cost --yes
 bb plugin reload openrouter-cost
 ```
+
+Обновление через `bb plugin update openrouter-cost` работает, когда источником
+был semver-диапазон (теги вида `openrouter-cost/v0.1.0` + `--tag-prefix`).
 
 ## Как добавить новый плагин
 
@@ -34,12 +38,13 @@ bb plugin reload openrouter-cost
    быть самостоятельным пакетом: `package.json` с блоком `bb`, код,
    `README.md`, `.gitignore`, lock-файл).
 2. Не коммитить `node_modules/`, `dist/`, `data.db*`, `logs/` — они в `.gitignore`.
-3. Добавить строку в таблицу выше.
-4. Установка: `bb plugin install git:<url> --subdirectory plugins/<id>`.
+3. Добавить запись в `.bb/plugins.json` (`{ "name": "<id>", "source": "./plugins/<id>" }`)
+   и строку в таблицу выше.
+4. Установка: `bb plugin install git:<url> --plugin <id>`.
 
-`bb` выбирает подкаталог и по имени плагина: `--plugin <bb.name>` вместо
-`--subdirectory`. Идентификатор (id) — поле `bb.name` в `package.json`
-подкаталога, поэтому он должен быть уникальным внутри репозитория.
+`.bb/plugins.json` — только индекс: он не переопределяет идентичность плагина
+(её задаёт `bb.name` в `package.json`) и не меняет имя `--plugin`, которое
+сопоставляется с полем `name` в индексе.
 
 ## Разработка
 
