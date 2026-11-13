@@ -3,6 +3,7 @@
   "schemaVersion": 1,
   "name": "jokerov-bb-plugins",
   "plugins": [
-    { "name": "openrouter-cost", "source": "./plugins/openrouter-cost" }
+    { "name": "openrouter-cost", "source": "./plugins/openrouter-cost" },
+    { "name": "bb-plugin-openrouter-cost", "source": "./plugins/openrouter-cost" }
   ]
 }
