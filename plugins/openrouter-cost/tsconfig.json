@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "noEmit": true,
+    "skipLibCheck": false
+  },
+  "include": [
+    "server.ts",
+    "app.tsx",
+    "cli.ts",
+    "collect.ts",
+    "openrouter.ts",
+    "price.ts",
+    "pricing.ts",
+    "report.ts",
+    "sources.ts",
+    "store.ts",
+    "theme.ts",
+    "smoke.test.ts",
+    "store.test.ts",
+    "components",
+    "lib",
+    "hooks"
+  ]
+}
